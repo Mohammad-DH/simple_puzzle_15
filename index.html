@@ -7,11 +7,50 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
   <body>
+    <div class="startPage">
+      <div class="panel">
+        <div class="panelContent panelContent1">
+          <h1>welcome to puzzle 15</h1>
+          <span id="playButton" class="playButton">play</span>
+        </div>
+        <div class="panelContent panelContent2">
+          <h3>set up your game</h3>
+          <div class="inputs">
+            <input
+              type="number"
+              name="dimension"
+              id="dimension"
+              placeholder="dimension"
+              min="2"
+              max="60"
+            />
+            <input
+              type="number"
+              name="shuffle"
+              id="shuffle"
+              placeholder="shuffle"
+              min="50"
+              max="999"
+            />
+          </div>
+          <span id="startButton" class="playButton">start</span>
+        </div>
+      </div>
+    </div>
+    <div class="winPage">
+      <div class="winPanel">
+        <span>you won</span>
+        <span>restart</span>
+      </div>
+    </div>
     <div class="grid"></div>
   </body>
   <script src="./global.js"></script>
+
   <script src="./render.js"></script>
   <script src="./gamePlay.js"></script>
-  <script src="./animation.js"></script>
+  <!-- <script src="./animation.js"></script> -->
   <script src="./index.js"></script>
+
+  <script src="./panels.js"></script>
 </html>

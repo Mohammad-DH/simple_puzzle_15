@@ -11,8 +11,102 @@ body {
   height: 100dvh;
 }
 
+.startPage {
+  position: absolute;
+  z-index: 1;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: rgb(255, 206, 173);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel {
+  position: absolute;
+  z-index: 1;
+  width: 35dvw;
+  height: 40dvh;
+  background-color: rgb(216, 244, 248);
+  border-radius: 15px;
+  padding: 3rem;
+}
+
+.panelContent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panelContent1 {
+}
+.panelContent1 h1 {
+  font-size: 5rem;
+}
+
+.playButton {
+  width: 40%;
+  height: 20%;
+  background-color: rgb(20, 156, 20);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: calc(16px);
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+
+.startButton:hover {
+  transform: scale(1.1);
+}
+
+.panelContent2 {
+  display: none;
+}
+
+.panelContent2 h3 {
+  font-size: 3rem;
+}
+.inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 40%;
+}
+
+.inputs input {
+  font-size: 1.5rem;
+}
+
+.winPage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+
+.winPanel {
+  width: 40%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .grid {
-  display: grid;
+  /* display: grid; */
+  display: none;
 }
 
 .grid-item {

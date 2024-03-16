@@ -1,3 +1,5 @@
+import { animation } from "./animation";
+
 const eventListener = () => {
   let gridItems = gridContainer.querySelectorAll(".grid-item");
 
@@ -8,17 +10,17 @@ const eventListener = () => {
   });
 };
 
-const moveable = (id, zeroPos) => {
-  if (id + rowLength === zeroPos) {
+const moveable = (id, zeroPosition) => {
+  if (id + rowLength === zeroPosition) {
     return { destination: id + rowLength, status: 1 };
-  } else if (id + 1 === zeroPos) {
+  } else if (id + 1 === zeroPosition) {
     return { destination: id + 1, status: 2 };
-  } else if (id - rowLength === zeroPos) {
+  } else if (id - rowLength === zeroPosition) {
     return { destination: id - rowLength, status: 3 };
-  } else if (id - 1 === zeroPos) {
+  } else if (id - 1 === zeroPosition) {
     return { destination: id - 1, status: 4 };
   } else {
-    return null;
+    return { destination: null, status: null };
   }
 };
 
@@ -31,6 +33,11 @@ const moveTheIndex = (event, destination, item, itemToSwap, zeroPosition) => {
   item.dataset.id = destination;
   itemToSwap.dataset.id = zeroPosition;
 };
+
+const win = () => {
+  return grid.every((value, index) => value === solvedGrid[index]);
+};
+
 const move = (event, item) => {
   let zeroPosition = grid.indexOf(0);
   if (parseInt(event.target.dataset.id) !== zeroPosition && getUserInput) {
@@ -45,6 +52,10 @@ const move = (event, item) => {
       getUserInput = false;
       moveTheIndex(event, destination, item, itemToSwap, zeroPosition);
       animation(status, item, itemToSwap);
+      let won = win();
+      if (!won) {
+        getUserInput = true;
+      }
     } else {
       console.log("not able to move it");
     }

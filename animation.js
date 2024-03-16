@@ -24,13 +24,5 @@ const animation = (status, item, itemToSwap) => {
   setTimeout(function () {
     generateGrid(grid);
     eventListener();
-    let won = win();
-    if (!won) {
-      getUserInput = true;
-    }
   }, 550);
-};
-
-const win = () => {
-  return grid.every((value, index) => value === solvedGrid[index]);
 };

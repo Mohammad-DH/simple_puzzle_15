@@ -10,7 +10,7 @@ const generateRandomArraySolutionOne = () => {
   gridArray[gridArray.length - 1] = 0;
   solvedGrid = [...gridArray];
   //* shuffle it
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < shuffleCount; i++) {
     let zeroPosition = gridArray.indexOf(0);
     let possibleMoves = getValidMoves(gridArray, zeroPosition);
 
