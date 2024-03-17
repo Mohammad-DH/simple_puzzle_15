@@ -1,14 +1,12 @@
 function generateRandomArray() {
   const gridArray = [];
-  const totalTiles = rowLength ** 2;
+  const totalTiles = rowLength * columnLength;
 
   // Fill with numbers
   for (let i = 1; i < totalTiles; i++) {
     gridArray.push(i);
   }
   solvedGrid = [...gridArray, 0];
-
-  console.log("solvedGrid", solvedGrid);
 
   while (true) {
     // Shuffle the array

@@ -6,7 +6,9 @@ playButton.addEventListener("click", function (event) {
 });
 
 startButton.addEventListener("click", function (event) {
-  rowLength = dimensionInput.valueAsNumber ? dimensionInput.valueAsNumber : 4;
+  rowLength = rowInput.valueAsNumber ? rowInput.valueAsNumber : 4;
+  columnLength = columnInput.valueAsNumber ? columnInput.valueAsNumber : 4;
+  tileSize = tileSizeInput.valueAsNumber ? tileSizeInput.valueAsNumber : 6;
 
   shuffleCount = shuffleInput.valueAsNumber ? shuffleInput.valueAsNumber : 100;
 
@@ -16,6 +18,8 @@ startButton.addEventListener("click", function (event) {
   }, 200);
 
   setTimeout(() => {
+    root.style.setProperty("--grid-size", `${tileSize}vw`);
+
     gridContainer.style.gridTemplateColumns = `repeat(${rowLength}, 1fr)`;
     gridContainer.style.display = "grid";
     main();

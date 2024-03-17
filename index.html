@@ -18,9 +18,17 @@
           <div class="inputs">
             <input
               type="number"
-              name="dimension"
-              id="dimension"
-              placeholder="dimension"
+              name="row"
+              id="row"
+              placeholder="row"
+              min="2"
+              max="60"
+            />
+            <input
+              type="number"
+              name="column"
+              id="column"
+              placeholder="column"
               min="2"
               max="60"
             />
@@ -32,6 +40,14 @@
               min="50"
               max="999"
             />
+            <input
+              type="number"
+              name="tileSize"
+              id="tileSize"
+              placeholder="tileSize"
+              min="2"
+              max="20"
+            />
           </div>
           <span id="startButton" class="playButton">start</span>
         </div>
@@ -39,8 +55,8 @@
     </div>
     <div class="winPage">
       <div class="winPanel">
-        <span>you won</span>
-        <span id="restartButton">restart</span>
+        <h3>you won</h3>
+        <span id="restartButton" class="restartButton">restart</span>
       </div>
     </div>
     <div class="grid"></div>
