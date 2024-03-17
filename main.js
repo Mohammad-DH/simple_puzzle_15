@@ -1,8 +1,9 @@
 const main = () => {
-  // render
+  // generate a flat array (render.js)
   grid = generateRandomArray();
+  // render it to the view (render.js)
   generateGrid(grid);
 
-  // gamePlay
+  // start the listener (gamePlay.js)
   eventListener();
 };

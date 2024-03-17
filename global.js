@@ -1,14 +1,19 @@
 // global variables
+
+// grid variables
 let rowLength;
 let columnLength;
-let getUserInput = true;
+let tileSize;
 let grid;
 let solvedGrid;
-let shuffleCount;
-let tileSize;
+
+// gameplay variable
+let getUserInput = true;
+
+// references
+let root = document.documentElement;
 let gridContainer = document.querySelector(".grid");
 let globalGridItems = gridContainer.querySelectorAll(".grid-item");
-let root = document.documentElement;
 
 let startPage = document.querySelector(".startPage");
 let panelContent1 = document.querySelector(".panelContent1");

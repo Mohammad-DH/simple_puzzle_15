@@ -1,4 +1,9 @@
-const tileAnimation = (status, item, itemToSwap) => {
+const tileAnimation = (status, item, zeroPosition) => {
+  // find the zero tile
+  let itemToSwap = gridContainer.querySelector(
+    `#grid-item[data-id="${zeroPosition}"]`
+  );
+
   switch (status) {
     case 1:
       item.classList.add("goToTop");
@@ -21,6 +26,10 @@ const tileAnimation = (status, item, itemToSwap) => {
       break;
   }
 
+  // rerender the grid
+  // inspired from 2d game engines
+  // probably you can prevent rerender if you keep the data-id sync
+  // this is NOT a hot fix , it's a design choice
   setTimeout(function () {
     generateGrid(grid);
     eventListener();
@@ -51,6 +60,7 @@ const playButtonAnimation = () => {
 };
 
 const startButtonAnimation = async (tileSize, rowLength) => {
+  // set grid style base on user input
   panelContent2.style.display = "none";
   startPage.style.display = "none";
   root.style.setProperty("--grid-size", tileSize);
