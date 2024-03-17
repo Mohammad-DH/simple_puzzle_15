@@ -1,4 +1,4 @@
-const animation = (status, item, itemToSwap) => {
+const tileAnimation = (status, item, itemToSwap) => {
   switch (status) {
     case 1:
       item.classList.add("goToTop");
@@ -24,5 +24,17 @@ const animation = (status, item, itemToSwap) => {
   setTimeout(function () {
     generateGrid(grid);
     eventListener();
-  }, 550);
+  }, 600);
+};
+
+const winAnimation = (status, item, itemToSwap) => {
+  setTimeout(() => {
+    gridContainer.style.display = "none";
+    winPage.style.display = "flex";
+  }, 600);
+};
+
+const restartAnimation = (status, item, itemToSwap) => {
+  gridContainer.style.display = "grid";
+  winPage.style.display = "none";
 };

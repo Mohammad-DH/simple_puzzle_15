@@ -1,23 +1,28 @@
-import { animation } from "./animation";
-
 const eventListener = () => {
-  let gridItems = gridContainer.querySelectorAll(".grid-item");
+  let gridItems = gridContainer.querySelectorAll("#grid-item");
 
   gridItems.forEach((item) => {
-    item.addEventListener("click", function (event) {
-      move(event, item);
-    });
+    console.log(item);
+    if (item.className !== "grid-item-empty") {
+      item.addEventListener("click", function (event) {
+        move(event, item);
+      });
+    }
   });
 };
 
 const moveable = (id, zeroPosition) => {
+  console.log(id, zeroPosition);
+  let tileRow = Math.floor(id / rowLength);
+  let zeroRow = Math.floor(zeroPosition / rowLength);
+
   if (id + rowLength === zeroPosition) {
     return { destination: id + rowLength, status: 1 };
-  } else if (id + 1 === zeroPosition) {
+  } else if (tileRow === zeroRow && id + 1 === zeroPosition) {
     return { destination: id + 1, status: 2 };
   } else if (id - rowLength === zeroPosition) {
     return { destination: id - rowLength, status: 3 };
-  } else if (id - 1 === zeroPosition) {
+  } else if (tileRow === zeroRow && id - 1 === zeroPosition) {
     return { destination: id - 1, status: 4 };
   } else {
     return { destination: null, status: null };
@@ -46,15 +51,17 @@ const move = (event, item) => {
 
     if (destination !== null) {
       let itemToSwap = gridContainer.querySelector(
-        `.grid-item[data-id="${destination}"]`
+        `#grid-item[data-id="${destination}"]`
       );
 
       getUserInput = false;
       moveTheIndex(event, destination, item, itemToSwap, zeroPosition);
-      animation(status, item, itemToSwap);
+      tileAnimation(status, item, itemToSwap);
       let won = win();
       if (!won) {
         getUserInput = true;
+      } else {
+        winAnimation();
       }
     } else {
       console.log("not able to move it");

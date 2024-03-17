@@ -1,55 +1,49 @@
-// in this solution we will make a correct array and then shuffle it
-const generateRandomArraySolutionOne = () => {
-  //* create a base array
-  let history = [];
-  let gridArray = [];
-  for (let i = 0; i < rowLength ** 2; i++) {
-    gridArray[i] = i + 1;
+function generateRandomArray() {
+  const gridArray = [];
+  const totalTiles = rowLength ** 2;
+
+  // Fill with numbers
+  for (let i = 1; i < totalTiles; i++) {
+    gridArray.push(i);
   }
+  solvedGrid = [...gridArray, 0];
 
-  gridArray[gridArray.length - 1] = 0;
-  solvedGrid = [...gridArray];
-  //* shuffle it
-  for (let i = 0; i < shuffleCount; i++) {
-    let zeroPosition = gridArray.indexOf(0);
-    let possibleMoves = getValidMoves(gridArray, zeroPosition);
+  console.log("solvedGrid", solvedGrid);
 
-    //* randomly chose one
-    let number = possibleMoves[parseInt(Math.random() * possibleMoves.length)];
-    gridArray[zeroPosition] = gridArray[number];
-    gridArray[number] = 0;
-    history.push([zeroPosition, number]);
-  }
+  while (true) {
+    // Shuffle the array
+    shuffleArray(gridArray);
 
-  let zeroPosition = gridArray.indexOf(0);
-  //* bring the 0 to the end
-  while (zeroPosition !== rowLength ** 2 - 1) {
-    if (zeroPosition + rowLength <= rowLength ** 2 - 1) {
-      history.push([zeroPosition, zeroPosition + rowLength]);
-      gridArray[zeroPosition] = gridArray[zeroPosition + rowLength];
-      gridArray[zeroPosition + rowLength] = 0;
-      zeroPosition = zeroPosition + rowLength;
-    }
-    if (zeroPosition + 1 <= rowLength ** 2 - 1) {
-      history.push([zeroPosition, zeroPosition + 1]);
-      gridArray[zeroPosition] = gridArray[zeroPosition + 1];
-      gridArray[zeroPosition + 1] = 0;
-      zeroPosition = zeroPosition + 1;
+    let Solvable = isSolvable(gridArray, totalTiles);
+    console.log(Solvable);
+    if (Solvable) {
+      break;
     }
   }
+  gridArray.push(0);
+  console.log(gridArray);
 
-  return { gridArray, history };
-};
+  return { gridArray };
+}
+
+function shuffleArray(gridArray) {
+  for (let i = gridArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [gridArray[i], gridArray[j]] = [gridArray[j], gridArray[i]];
+  }
+}
 
 const getValidMoves = (gridArray, zeroPosition) => {
   let possibleMoves = [];
   gridArray.map((number, index) => {
     if (number !== 0) {
+      let tileRow = Math.floor(index / rowLength);
+      let zeroRow = Math.floor(zeroPosition / rowLength);
       if (
         index + rowLength === zeroPosition ||
-        index + 1 === zeroPosition ||
+        (tileRow === zeroRow && index + 1 === zeroPosition) ||
         index - rowLength === zeroPosition ||
-        index - 1 === zeroPosition
+        (tileRow === zeroRow && index - 1 === zeroPosition)
       ) {
         possibleMoves.push(index);
       }
@@ -59,34 +53,26 @@ const getValidMoves = (gridArray, zeroPosition) => {
   return possibleMoves;
 };
 
-const isSolvable = (gridArray) => {
-  let zeroPosition = gridArray.indexOf(0);
+const isSolvable = (gridArray, totalTiles) => {
   let inversions = 0;
-  const zeroRow = Math.floor(zeroPosition / rowLength);
 
-  // Count inversions
-  for (let i = 0; i < gridArray.length - 1; i++) {
-    const currentTile = gridArray[i];
-    // 0 does't matter
-    if (currentTile === 0) continue;
-
-    for (let j = i + 1; j < gridArray.length; j++) {
-      const comparedTile = gridArray[j];
-      if (comparedTile !== 0 && currentTile > comparedTile) {
+  // Calculate inversions ex: 1 ,2 , 9 , 4 , 5 ==> inversion of 9 is 2
+  for (let i = 0; i < totalTiles - 1; i++) {
+    for (let j = i + 1; j < totalTiles; j++) {
+      if (gridArray[j] !== 0 && gridArray[i] > gridArray[j]) {
         inversions++;
       }
     }
   }
 
-  // if rowLength is even
-  if (rowLength % 2 === 0) {
-    // and inversion is even too
-    return inversions % 2 === 0;
-  } else {
-    // if rowLength is odd
-    // and inversion + zeroRow is not even ( it odd )
-    return (inversions + zeroRow) % 2 === 1;
-  }
+  // Check solvability
+  // if totalTiles is odd and inversions is odd too
+  // if totalTiles is even and inversions is even too
+  const isSolvable =
+    (totalTiles % 2 === 1 && inversions % 2 === 1) ||
+    (totalTiles % 2 === 0 && inversions % 2 === 0);
+
+  return isSolvable;
 };
 
 const generateGrid = (gridArray) => {
@@ -94,13 +80,14 @@ const generateGrid = (gridArray) => {
 
   function createGridItem(content, index) {
     const item = document.createElement("div");
-    item.classList.add("grid-item");
-    item.textContent = content;
+    item.id = "grid-item";
+    item.classList.add(content !== "0" ? "grid-item" : "grid-item-empty");
+    item.textContent = content !== "0" ? content : "";
     item.dataset.id = index;
     return item;
   }
 
   for (let i = 0; i < gridArray.length; i++) {
-    gridContainer.appendChild(createGridItem(` ${gridArray[i]}`, i));
+    gridContainer.appendChild(createGridItem(`${gridArray[i]}`, i));
   }
 };
