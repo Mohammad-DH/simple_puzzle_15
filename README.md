@@ -8,7 +8,9 @@ To run the game, follow these steps:
 
 1. Clone the repository to your local machine using the following command:
 
+   ```
    git clone https://github.com/Mohammad-DH/simple_puzzle_15.git
+   ```
 
 2. Locate the `index.html` file in the cloned repository.
 
