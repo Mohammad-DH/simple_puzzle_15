@@ -21,7 +21,7 @@ function generateRandomArray() {
   gridArray.push(0);
   console.log(gridArray);
 
-  return { gridArray };
+  return gridArray;
 }
 
 function shuffleArray(gridArray) {
@@ -30,26 +30,6 @@ function shuffleArray(gridArray) {
     [gridArray[i], gridArray[j]] = [gridArray[j], gridArray[i]];
   }
 }
-
-const getValidMoves = (gridArray, zeroPosition) => {
-  let possibleMoves = [];
-  gridArray.map((number, index) => {
-    if (number !== 0) {
-      let tileRow = Math.floor(index / rowLength);
-      let zeroRow = Math.floor(zeroPosition / rowLength);
-      if (
-        index + rowLength === zeroPosition ||
-        (tileRow === zeroRow && index + 1 === zeroPosition) ||
-        index - rowLength === zeroPosition ||
-        (tileRow === zeroRow && index - 1 === zeroPosition)
-      ) {
-        possibleMoves.push(index);
-      }
-    }
-  });
-
-  return possibleMoves;
-};
 
 const isSolvable = (gridArray, totalTiles) => {
   let inversions = 0;
@@ -80,7 +60,9 @@ const generateGrid = (gridArray) => {
     const item = document.createElement("div");
     item.id = "grid-item";
     item.classList.add(content !== "0" ? "grid-item" : "grid-item-empty");
-    item.textContent = content !== "0" ? content : "";
+    const span = document.createElement("span");
+    span.textContent = content !== "0" ? content : "";
+    item.appendChild(span);
     item.dataset.id = index;
     return item;
   }

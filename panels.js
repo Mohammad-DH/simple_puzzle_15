@@ -1,33 +1,34 @@
-playButton.addEventListener("click", function (event) {
-  panelContent1.style.display = "none";
-  setTimeout(() => {
-    panelContent2.style.display = "flex";
-  }, 200);
+playButton.addEventListener("click", () => {
+  playButtonAnimation();
 });
 
-startButton.addEventListener("click", function (event) {
+startButton.addEventListener("click", () => {
+  cursorAnimation("pointer");
+
   rowLength = rowInput.valueAsNumber ? rowInput.valueAsNumber : 4;
   columnLength = columnInput.valueAsNumber ? columnInput.valueAsNumber : 4;
-  tileSize = tileSizeInput.valueAsNumber ? tileSizeInput.valueAsNumber : 6;
+
+  tileSize = tileSizeInput.valueAsNumber
+    ? `${tileSizeInput.valueAsNumber}px`
+    : calculateTileSize();
 
   shuffleCount = shuffleInput.valueAsNumber ? shuffleInput.valueAsNumber : 100;
 
-  panelContent2.style.display = "none";
-  setTimeout(() => {
-    startPage.style.display = "none";
-  }, 200);
-
-  setTimeout(() => {
-    root.style.setProperty("--grid-size", `${tileSize}vw`);
-
-    gridContainer.style.gridTemplateColumns = `repeat(${rowLength}, 1fr)`;
-    gridContainer.style.display = "grid";
-    main();
-  }, 300);
+  startButtonAnimation(tileSize, rowLength);
+  main();
 });
 
 restartButton.addEventListener("click", function (event) {
-  getUserInput = true;
   main();
   restartAnimation();
 });
+
+const calculateTileSize = () => {
+  if (window.innerWidth < 800) {
+    return `${Math.floor(window.innerWidth / rowLength) * 0.9}px`;
+  } else if (window.innerWidth < 1400) {
+    return `${Math.floor((window.innerWidth / rowLength) * 0.6)}px`;
+  } else {
+    return `${Math.floor((window.innerWidth / rowLength) * 0.4)}px`;
+  }
+};

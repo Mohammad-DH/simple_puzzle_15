@@ -1,5 +1,6 @@
 :root {
-  --grid-size: 6vw;
+  --grid-size: 6rem;
+  --cursor: "pointer";
 }
 
 * {
@@ -48,19 +49,19 @@ body {
 .panelContent1 {
 }
 .panelContent1 h1 {
-  font-size: 5rem;
+  font-size: 3rem;
 }
 
 .playButton {
-  width: 40%;
-  height: 20%;
+  width: 10vw;
+  height: 8vh;
   background-color: rgb(20, 156, 20);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: calc(16px);
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s linear;
@@ -75,8 +76,9 @@ body {
 }
 
 .panelContent2 h3 {
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
+
 .inputs {
   display: flex;
   flex-direction: column;
@@ -87,7 +89,8 @@ body {
 }
 
 .inputs input {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
+  width: 10rem;
 }
 
 .winPage {
@@ -101,13 +104,13 @@ body {
 
 .winPanel {
   width: 15vw;
-  height: 15vw;
+  aspect-ratio: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   background-color: rgb(216, 244, 248);
-  padding: 3rem;
+  padding: 2rem;
   border-radius: 15px;
 }
 
@@ -124,7 +127,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: calc(16px);
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s linear;
@@ -149,6 +152,12 @@ body {
   border: 1px solid black;
   box-sizing: border-box;
   border-radius: 15px;
+  cursor: var(--cursor);
+}
+
+.grid-item span {
+  pointer-events: none;
+  user-select: none;
 }
 
 .grid-item-empty {
@@ -203,5 +212,61 @@ body {
   }
   100% {
     transform: translateY(calc(var(--grid-size) * -1));
+  }
+}
+/* less than 1500px */
+@media (max-width: 1500px) {
+  .winPanel {
+    width: 25vw;
+    padding: 1.5rem;
+  }
+}
+
+/* less than 767px */
+@media (max-width: 767px) {
+  .panel {
+    width: 70dvw;
+    height: 80dvh;
+    padding: 1.5rem;
+  }
+  .panelContent1 h1 {
+    font-size: 4rem;
+    text-align: center;
+  }
+  .playButton {
+    width: 40vw;
+    height: 9vh;
+    font-size: 2.5rem;
+  }
+  .panelContent2 h3 {
+    font-size: 4rem;
+    text-align: center;
+  }
+  .inputs input {
+    font-size: 1.7rem;
+  }
+  .winPanel {
+    width: 80vw;
+    padding: 1rem;
+  }
+}
+
+/* less than 400px */
+@media (max-width: 400px) {
+  .panelContent1 h1 {
+    font-size: 3rem;
+    text-align: center;
+  }
+  .playButton {
+    width: 40vw;
+    height: 9vh;
+    font-size: 2rem;
+  }
+  .panelContent2 h3 {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+  .inputs input {
+    font-size: 1.7rem;
   }
 }

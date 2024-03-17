@@ -1,19 +1,17 @@
 const eventListener = () => {
-  let gridItems = gridContainer.querySelectorAll("#grid-item");
+  globalGridItems = gridContainer.querySelectorAll(".grid-item");
 
-  gridItems.forEach((item) => {
-    if (item.className !== "grid-item-empty") {
-      item.addEventListener("click", function (event) {
-        move(event, item);
-      });
-    }
+  globalGridItems.forEach((item) => {
+    item.addEventListener("click", function (event) {
+      move(event, item);
+    });
   });
 };
 
 const move = (event, item) => {
   let zeroPosition = grid.indexOf(0);
-  if (parseInt(event.target.dataset.id) !== zeroPosition && getUserInput) {
-    let origin = parseInt(event.target.dataset.id);
+  let origin = parseInt(event.target.dataset.id);
+  if (origin !== zeroPosition && getUserInput) {
     let status = moveable(origin, zeroPosition);
 
     if (status !== null) {
@@ -22,19 +20,26 @@ const move = (event, item) => {
       );
 
       getUserInput = false;
-      moveTheIndex(event, item, itemToSwap, zeroPosition);
+      cursorAnimation("wait");
+      moveTheIndex(origin, item, itemToSwap, zeroPosition);
       tileAnimation(status, item, itemToSwap);
 
       let won = win();
       if (!won) {
         setTimeout(function () {
           getUserInput = true;
+          cursorAnimation("pointer");
         }, 600);
       } else {
+        getUserInput = true;
+        cursorAnimation("pointer");
         winAnimation();
       }
     } else {
-      console.log("not able to move it");
+      cursorAnimation("not-allowed");
+      setTimeout(function () {
+        cursorAnimation("pointer");
+      }, 100);
     }
   }
 };
@@ -56,8 +61,7 @@ const moveable = (id, zeroPosition) => {
   }
 };
 
-const moveTheIndex = (event, item, itemToSwap, zeroPosition) => {
-  let origin = parseInt(event.target.dataset.id);
+const moveTheIndex = (origin, item, itemToSwap, zeroPosition) => {
   grid[zeroPosition] = grid[origin];
   grid[origin] = 0;
   item.dataset.id = origin;

@@ -27,14 +27,33 @@ const tileAnimation = (status, item, itemToSwap) => {
   }, 600);
 };
 
-const winAnimation = (status, item, itemToSwap) => {
+const winAnimation = () => {
   setTimeout(() => {
     gridContainer.style.display = "none";
     winPage.style.display = "flex";
   }, 600);
 };
 
-const restartAnimation = (status, item, itemToSwap) => {
+const restartAnimation = () => {
   gridContainer.style.display = "grid";
   winPage.style.display = "none";
+};
+
+const cursorAnimation = (cursor) => {
+  root.style.setProperty("--cursor", cursor);
+};
+
+const playButtonAnimation = () => {
+  panelContent1.style.display = "none";
+  setTimeout(() => {
+    panelContent2.style.display = "flex";
+  }, 200);
+};
+
+const startButtonAnimation = async (tileSize, rowLength) => {
+  panelContent2.style.display = "none";
+  startPage.style.display = "none";
+  root.style.setProperty("--grid-size", tileSize);
+  gridContainer.style.gridTemplateColumns = `repeat(${rowLength}, 1fr)`;
+  gridContainer.style.display = "grid";
 };

@@ -7,6 +7,7 @@ let solvedGrid;
 let shuffleCount;
 let tileSize;
 let gridContainer = document.querySelector(".grid");
+let globalGridItems = gridContainer.querySelectorAll(".grid-item");
 let root = document.documentElement;
 
 let startPage = document.querySelector(".startPage");
